@@ -1,15 +1,69 @@
 import { useEffect, useRef, useState } from "react";
 import {
   Cloud,
-  Layers,
+  CloudUpload,
+  Blocks,
   Linkedin,
   Mail,
   MapPin,
   Send,
-  Sparkles,
 } from "lucide-react";
 
 const ACCENT = "text-accent";
+
+const SALESFORCE_WORD = "Salesforce";
+
+function delay(ms: number) {
+  return new Promise<void>((resolve) => {
+    window.setTimeout(resolve, ms);
+  });
+}
+
+function SalesforceTyping() {
+  const [count, setCount] = useState(0);
+  const [armed, setArmed] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const run = async () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        setCount(SALESFORCE_WORD.length);
+        return;
+      }
+      const narrow = window.matchMedia("(max-width: 639px)").matches;
+      const startDelay = narrow ? 1250 : 1450;
+      const charMs = narrow ? 130 : 105;
+      await delay(startDelay);
+      if (cancelled) return;
+      setArmed(true);
+      for (let i = 1; i <= SALESFORCE_WORD.length; i++) {
+        await delay(charMs);
+        if (cancelled) return;
+        setCount(i);
+      }
+    };
+
+    void run();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const typed = SALESFORCE_WORD.slice(0, count);
+  const showCursor = armed && count < SALESFORCE_WORD.length;
+
+  return (
+    <span className="inline-flex items-baseline">
+      <span className={`${ACCENT} inline-block`}>{typed}</span>
+      {showCursor ? (
+        <span className="typing-cursor" aria-hidden>
+          |
+        </span>
+      ) : null}
+    </span>
+  );
+}
 
 function useRevealOnScroll<T extends HTMLElement>() {
   const ref = useRef<T | null>(null);
@@ -91,17 +145,19 @@ export default function App() {
       <main>
         <section className="relative flex min-h-[calc(100dvh-6.5rem)] flex-col items-center justify-center px-5 pb-24 pt-32 text-center sm:px-8 sm:pb-32 sm:pt-36">
           <div className="mx-auto mt-10 w-full max-w-4xl sm:mt-14">
-            <h1
-              className="animate-fade-in-up text-3xl font-extrabold uppercase leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl"
-              style={{ animationDelay: "0.15s" }}
-            >
-              Custom CRM &amp;{" "}
-              <br />
-              <span className={ACCENT}>Salesforce</span> Solutions
+            <h1 className="text-balance text-3xl font-extrabold uppercase leading-snug tracking-tight text-white sm:text-5xl sm:leading-[1.1] lg:text-6xl">
+              <span
+                className="hero-fade block [animation-delay:180ms]"
+              >
+                Custom CRM &amp;
+              </span>
+              <span className="hero-fade mt-2 flex min-h-[1.35em] flex-wrap items-baseline justify-center gap-x-2 gap-y-1 px-1 sm:mt-1 sm:min-h-[1.25em] sm:gap-x-4 sm:gap-y-0 [animation-delay:320ms]">
+                <SalesforceTyping />
+                <span className="text-white">Solutions</span>
+              </span>
             </h1>
             <p
-              className="mx-auto mt-8 max-w-2xl text-lg font-medium leading-relaxed text-zinc-400 sm:text-xl animate-fade-in-up"
-              style={{ animationDelay: "0.3s" }}
+              className="hero-fade mx-auto mt-8 max-w-2xl text-base font-medium leading-relaxed text-zinc-400 sm:text-xl [animation-delay:480ms]"
             >
               We help businesses understand their bottlenecks, pain points, over
               expenditures so that we can improve business workflows, bring
@@ -131,17 +187,17 @@ export default function App() {
             <ul className="mt-14 grid gap-5 sm:grid-cols-3">
               {[
                 {
-                  icon: Layers,
+                  icon: Blocks,
                   title: "Custom CRM",
                   body: "Purpose-built pipelines, objects, and workflows aligned to how you actually sell.",
                 },
                 {
-                  icon: Sparkles,
+                  icon: Cloud,
                   title: "Salesforce Solutions",
                   body: "Implementation, cleanup, and extensions—Apex, APIs, and admin that stays maintainable.",
                 },
                 {
-                  icon: Cloud,
+                  icon: CloudUpload,
                   title: "AWS Native",
                   body: "Secure integrations, serverless glue, and observability in your cloud—not a black box.",
                 },
