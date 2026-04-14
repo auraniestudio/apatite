@@ -50,7 +50,19 @@ export default function App() {
     <div
       className={`relative min-h-screen overflow-x-hidden ${mounted ? "page-enter" : "opacity-0"}`}
     >
-      <div className="pointer-events-none fixed inset-0 -z-10 bg-black" aria-hidden />
+      <div
+        className="pointer-events-none fixed inset-0 -z-10 bg-black"
+        aria-hidden
+      />
+      {/* Zinc-500 “sports hall” flood: large circle, vertically centered, anchored far right */}
+      <div
+        className="pointer-events-none fixed inset-0 -z-10"
+        style={{
+          background:
+            "radial-gradient(circle min(200vmin, 800px) at 108% 50%, rgba(113, 113, 122, 0.42) 0%, rgba(113, 113, 122, 0.14) 38%, rgba(113, 113, 122, 0.04) 58%, transparent 72%)",
+        }}
+        aria-hidden
+      />
 
       <header className="fixed left-0 right-0 top-0 z-50 bg-black/90 backdrop-blur-md">
         <div className="relative mx-auto max-w-6xl px-5 py-4 sm:px-8 sm:py-5">
@@ -61,7 +73,7 @@ export default function App() {
             >
               <img
                 src="/apatite_io_logo.jpeg"
-                alt="Apatite"
+                alt="salesforce solutions in Wellington, New Zealand"
                 className="h-16 w-auto object-contain object-left opacity-95 transition-opacity group-hover:opacity-100 sm:h-[4.75rem] lg:h-[5.25rem]"
               />
             </a>
@@ -84,6 +96,7 @@ export default function App() {
               style={{ animationDelay: "0.15s" }}
             >
               Custom CRM &amp;{" "}
+              <br />
               <span className={ACCENT}>Salesforce</span> Solutions
             </h1>
             <p
