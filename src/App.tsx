@@ -237,7 +237,7 @@ export default function App() {
             </h2>
             <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-stretch">
               <div
-                className={`animate-on-scroll ${formRef.visible ? "is-visible" : ""}`}
+                className={`animate-on-scroll flex h-full min-h-0 flex-col ${formRef.visible ? "is-visible" : ""}`}
                 style={{ transitionDelay: "80ms" }}
               >
                 <form
@@ -249,7 +249,7 @@ export default function App() {
                 >
                   {submitted ? (
                     <p className="rounded-[2rem] border border-accent/30 bg-accent/5 px-8 py-10 text-center text-lg font-medium text-zinc-200">
-                      Thanks—your message is in. We&apos;ll be in touch shortly.
+                      Thanks, your message is on its way. We&apos;ll be in touch shortly.
                     </p>
                   ) : (
                     <>
@@ -315,14 +315,14 @@ export default function App() {
                 </form>
               </div>
               <div
-                className={`animate-on-scroll h-full min-h-[240px] ${formRef.visible ? "is-visible" : ""}`}
+                className={`animate-on-scroll flex h-full min-h-[350px] flex-col sm:min-h-[200px] lg:min-h-0 ${formRef.visible ? "is-visible" : ""}`}
                 style={{ transitionDelay: "120ms" }}
               >
-                <figure className="relative flex h-full min-h-[280px] items-center justify-center overflow-hidden rounded-2xl border border-white/[0.08] bg-zinc-900/50 lg:aspect-[3/4] lg:min-h-[480px]">
+                <figure className="relative flex min-h-0 flex-1 overflow-hidden rounded-2xl border border-white/[0.08] bg-zinc-900/50">
                   <img
                     src="/contact-illustration.png"
-                    alt=""
-                    className="h-full w-full object-cover object-center"
+                    alt="Salesforce Implementation & Support in Wellington, New Zealand"
+                    className="h-full w-full min-h-[180px] object-cover object-center lg:min-h-0"
                     loading="lazy"
                     decoding="async"
                   />
@@ -337,7 +337,7 @@ export default function App() {
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 text-center">
           <div className="flex items-center gap-6">
             <a
-              href="https://www.linkedin.com/"
+              href="https://www.linkedin.com/company/apatite-io/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white transition hover:text-accent"
