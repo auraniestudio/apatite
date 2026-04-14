@@ -2,8 +2,8 @@
 
 @theme {
   --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --color-accent: #00e8ff;
-  --color-accent-dim: #00b8d4;
+  --color-accent: #2e90ff;
+  --color-accent-dim: #1d6fd9;
 }
 
 @layer base {
@@ -11,7 +11,7 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply min-h-screen bg-[#0a0a0a] font-sans text-zinc-100 antialiased;
+    @apply min-h-screen bg-black font-sans text-zinc-100 antialiased;
   }
 }
 
