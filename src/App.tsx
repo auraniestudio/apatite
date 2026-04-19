@@ -126,7 +126,7 @@ export default function App() {
               className="group flex items-center rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
               <img
-                src="/apatite_io_logo.jpeg"
+                src="/logo-square-transparent-bw.png"
                 alt="salesforce solutions in Wellington, New Zealand"
                 className="h-16 w-auto object-contain object-left opacity-95 transition-opacity group-hover:opacity-100 sm:h-[4.75rem] lg:h-[5.25rem]"
               />
@@ -181,25 +181,24 @@ export default function App() {
               className={`animate-on-scroll mt-4 max-w-2xl text-base leading-relaxed text-zinc-500 sm:text-lg ${servicesRef.visible ? "is-visible" : ""}`}
               style={{ transitionDelay: "80ms" }}
             >
-              Strategy, implementation, and cloud-native delivery tailored to how
-              your team sells and operates.
+               Your paragraph text Your paragraph text Your paragraph text
             </p>
             <ul className="mt-14 grid gap-5 sm:grid-cols-3">
               {[
                 {
                   icon: Blocks,
                   title: "Custom CRM",
-                  body: "Purpose-built pipelines, objects, and workflows aligned to how you actually sell.",
+                  body: " Your paragraph text Your paragraph text Your paragraph text.",
                 },
                 {
                   icon: Cloud,
                   title: "Salesforce Solutions",
-                  body: "Implementation, cleanup, and extensions—Apex, APIs, and admin that stays maintainable.",
+                  body: " Your paragraph text Your paragraph text Your paragraph text  Your paragraph text.",
                 },
                 {
                   icon: CloudUpload,
                   title: "AWS Native",
-                  body: "Secure integrations, serverless glue, and observability in your cloud—not a black box.",
+                  body: " Your paragraph text Your paragraph text Your paragraph text  Your paragraph text Your paragraph text.",
                 },
               ].map((item, i) => (
                 <li
@@ -353,6 +352,9 @@ export default function App() {
               <Mail className="h-6 w-6" strokeWidth={1.75} aria-hidden />
             </a>
           </div>
+          <p className="text-sm font-medium text-zinc-300">
+            Salesforce Implementation &amp; Support
+          </p>
           <p className="flex items-center justify-center gap-2 text-sm text-zinc-500">
             <MapPin className="h-4 w-4 shrink-0 text-zinc-500" aria-hidden />
             Wellington, New Zealand
