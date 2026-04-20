@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
-  Cloud,
-  CloudUpload,
   Blocks,
+  Cloud,
   Linkedin,
   Mail,
   MapPin,
@@ -11,7 +10,8 @@ import {
 
 const ACCENT = "text-accent";
 
-const SALESFORCE_WORD = "Salesforce";
+/** Typed inline in the hero subhead */
+const SUBHEAD_SALESFORCE_WORD = "Salesforce";
 
 function delay(ms: number) {
   return new Promise<void>((resolve) => {
@@ -19,29 +19,37 @@ function delay(ms: number) {
   });
 }
 
-function SalesforceTyping() {
+function SubheadSalesforceTyping({
+  onComplete,
+}: {
+  onComplete?: () => void;
+}) {
   const [count, setCount] = useState(0);
   const [armed, setArmed] = useState(false);
+  const onCompleteRef = useRef(onComplete);
+  onCompleteRef.current = onComplete;
 
   useEffect(() => {
     let cancelled = false;
 
     const run = async () => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        setCount(SALESFORCE_WORD.length);
+        setCount(SUBHEAD_SALESFORCE_WORD.length);
+        window.setTimeout(() => onCompleteRef.current?.(), 0);
         return;
       }
       const narrow = window.matchMedia("(max-width: 639px)").matches;
-      const startDelay = narrow ? 1250 : 1450;
-      const charMs = narrow ? 130 : 105;
+      const startDelay = narrow ? 1000 : 1450;
+      const charMs = narrow ? 105 : 105;
       await delay(startDelay);
       if (cancelled) return;
       setArmed(true);
-      for (let i = 1; i <= SALESFORCE_WORD.length; i++) {
+      for (let i = 1; i <= SUBHEAD_SALESFORCE_WORD.length; i++) {
         await delay(charMs);
         if (cancelled) return;
         setCount(i);
       }
+      if (!cancelled) onCompleteRef.current?.();
     };
 
     void run();
@@ -50,14 +58,18 @@ function SalesforceTyping() {
     };
   }, []);
 
-  const typed = SALESFORCE_WORD.slice(0, count);
-  const showCursor = armed && count < SALESFORCE_WORD.length;
+  const typed = SUBHEAD_SALESFORCE_WORD.slice(0, count);
+  const showCursor = armed && count < SUBHEAD_SALESFORCE_WORD.length;
 
   return (
-    <span className="inline-flex items-baseline">
-      <span className={`${ACCENT} inline-block`}>{typed}</span>
+    <span className="inline-flex items-baseline gap-0.5 text-[1.08em] font-semibold tracking-tight sm:text-[1.1em]">
+      <span
+        className={`${ACCENT} inline-block [text-shadow:0_0_16px_rgba(46,144,255,0.35)]`}
+      >
+        {typed}
+      </span>
       {showCursor ? (
-        <span className="typing-cursor" aria-hidden>
+        <span className="typing-cursor-sm" aria-hidden>
           |
         </span>
       ) : null}
@@ -88,8 +100,13 @@ function useRevealOnScroll<T extends HTMLElement>() {
 export default function App() {
   const [mounted, setMounted] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [heroHeadlineReady, setHeroHeadlineReady] = useState(false);
   const servicesRef = useRevealOnScroll<HTMLElement>();
   const formRef = useRevealOnScroll<HTMLElement>();
+
+  const onSubheadSalesforceComplete = useCallback(() => {
+    setHeroHeadlineReady(true);
+  }, []);
 
   useEffect(() => {
     const t = requestAnimationFrame(() => setMounted(true));
@@ -127,7 +144,7 @@ export default function App() {
             >
               <img
                 src="/logo-square-transparent-bw.png"
-                alt="salesforce solutions in Wellington, New Zealand"
+                alt="Apatite IO"
                 className="h-16 w-auto object-contain object-left opacity-95 transition-opacity group-hover:opacity-100 sm:h-[4.75rem] lg:h-[5.25rem]"
               />
             </a>
@@ -144,24 +161,37 @@ export default function App() {
 
       <main>
         <section className="relative flex min-h-[calc(100dvh-6.5rem)] flex-col items-center justify-center px-5 pb-24 pt-32 text-center sm:px-8 sm:pb-32 sm:pt-36">
-          <div className="mx-auto mt-10 w-full max-w-4xl sm:mt-14">
-            <h1 className="text-balance text-3xl font-extrabold uppercase leading-snug tracking-tight text-white sm:text-5xl sm:leading-[1.1] lg:text-6xl">
-              <span
-                className="hero-fade block [animation-delay:180ms]"
-              >
-                Custom CRM &amp;
-              </span>
-              <span className="hero-fade mt-2 flex min-h-[1.35em] flex-wrap items-baseline justify-center gap-x-2 gap-y-1 px-1 sm:mt-1 sm:min-h-[1.25em] sm:gap-x-4 sm:gap-y-0 [animation-delay:320ms]">
-                <SalesforceTyping />
-                <span className="text-white">Solutions</span>
-              </span>
-            </h1>
+          <div className="mx-auto flex w-full max-w-3xl flex-col items-center justify-center gap-5 sm:gap-6">
+            {/* Fixed-height slot so the subhead below never shifts when the headline appears */}
+            <div className="flex min-h-[15rem] w-full flex-col items-center justify-center overflow-visible pb-1 sm:min-h-[17.5rem] lg:min-h-[20rem]">
+              {heroHeadlineReady ? (
+                <h1 className="flex w-full flex-col items-center gap-2 overflow-visible text-balance text-3xl font-semibold leading-snug tracking-tight sm:gap-2.5 sm:text-5xl sm:leading-[1.18] sm:font-medium lg:text-6xl lg:leading-[1.16]">
+                  <span className="headline-slice text-zinc-300">
+                    Smarter Systems.
+                  </span>
+                  <span className="headline-slice headline-slice--d1 text-zinc-300">
+                    Leaner Costs.
+                  </span>
+                  <span className="headline-slice headline-slice--d2 text-zinc-300">
+                    Bigger Results.
+                  </span>
+                </h1>
+              ) : null}
+            </div>
             <p
-              className="hero-fade mx-auto mt-8 max-w-2xl text-base font-medium leading-relaxed text-zinc-400 sm:text-xl [animation-delay:480ms]"
+              className="mx-auto max-w-2xl text-lg font-normal leading-[1.7] text-zinc-400 sm:max-w-3xl sm:text-xl sm:leading-relaxed"
             >
-              We help businesses understand their bottlenecks, pain points, over
-              expenditures so that we can improve business workflows, bring
-              forth innovation, opening pathways to hidden opportunities.
+              <span className="text-zinc-400">
+                Whether you&apos;re deep in{" "}
+                <SubheadSalesforceTyping
+                  onComplete={onSubheadSalesforceComplete}
+                />{" "}
+                or looking for something built on your terms,
+              </span>
+              <br />
+              <span className="mt-2 inline-block text-zinc-200 sm:mt-1.5">
+                We&apos;ve got you covered.
+              </span>
             </p>
           </div>
         </section>
@@ -181,24 +211,19 @@ export default function App() {
               className={`animate-on-scroll mt-4 max-w-2xl text-base leading-relaxed text-zinc-500 sm:text-lg ${servicesRef.visible ? "is-visible" : ""}`}
               style={{ transitionDelay: "80ms" }}
             >
-               Your paragraph text Your paragraph text Your paragraph text
+              
             </p>
-            <ul className="mt-14 grid gap-5 sm:grid-cols-3">
+            <ul className="mt-14 grid gap-5 sm:grid-cols-2">
               {[
                 {
                   icon: Blocks,
-                  title: "Custom CRM",
-                  body: " Your paragraph text Your paragraph text Your paragraph text.",
+                  title: "Salesforce Implementation & Support",
+                  body: "From initial setup to ongoing optimisation, we make sure Salesforce works the way your business needs it to. Whether you're starting fresh or untangling an existing setup, we've got the expertise to get it right.",
                 },
                 {
                   icon: Cloud,
-                  title: "Salesforce Solutions",
-                  body: " Your paragraph text Your paragraph text Your paragraph text  Your paragraph text.",
-                },
-                {
-                  icon: CloudUpload,
-                  title: "AWS Native",
-                  body: " Your paragraph text Your paragraph text Your paragraph text  Your paragraph text Your paragraph text.",
+                  title: "Custom CRM Solution",
+                  body: "A CRM built around your business — not a vendor's pricing model. Pay only for what you use, scale at your own pace, and get a solution that actually fits the way you work.",
                 },
               ].map((item, i) => (
                 <li
