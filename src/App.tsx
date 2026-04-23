@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { ContactMap } from "./ContactMap";
 import {
   Blocks,
   Cloud,
@@ -339,18 +340,12 @@ export default function App() {
                 </form>
               </div>
               <div
-                className={`animate-on-scroll flex h-full min-h-[350px] flex-col sm:min-h-[200px] lg:min-h-0 ${formRef.visible ? "is-visible" : ""}`}
+                className={`animate-on-scroll flex h-full min-h-[300px] flex-col lg:min-h-0 ${formRef.visible ? "is-visible" : ""}`}
                 style={{ transitionDelay: "120ms" }}
               >
-                <figure className="relative flex min-h-0 flex-1 overflow-hidden rounded-2xl border border-white/[0.08] bg-zinc-900/50">
-                  <img
-                    src="/contact-illustration.png"
-                    alt="Salesforce Implementation & Support in Wellington, New Zealand"
-                    className="h-full w-full min-h-[180px] object-cover object-center lg:min-h-0"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </figure>
+                <div className="relative flex min-h-0 flex-1 overflow-hidden rounded-2xl border border-white/[0.08] bg-zinc-900/50">
+                  <ContactMap />
+                </div>
               </div>
             </div>
           </div>
@@ -359,6 +354,13 @@ export default function App() {
 
       <footer className="bg-zinc-900 px-5 py-12 sm:px-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 text-center">
+          <img
+            src="/logo-square-transparent-bw.png"
+            alt="Apatite IO"
+            className="h-9 w-auto object-contain opacity-90"
+            loading="lazy"
+            decoding="async"
+          />
           <div className="flex items-center gap-6">
             <a
               href="https://www.linkedin.com/company/apatite-io/"
