@@ -344,8 +344,8 @@ export default function App() {
                 <div className="relative flex min-h-0 flex-1 overflow-hidden rounded-2xl border border-white/[0.08] bg-zinc-900/50">
                   <a
                     href="https://www.google.com/maps/search/?api=1&query=Wellington+CBD,+Wellington,+New+Zealand"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    target="salesforce-implementation-and-support-in-wellington-new-zealand"
+                    rel="salesforce-implementation-and-support-in-wellington-new-zealand"
                     aria-label="Open Wellington CBD on Google Maps"
                     className="group block h-full w-full"
                   >
