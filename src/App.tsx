@@ -1,11 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ContactMap } from "./ContactMap";
 import {
   Blocks,
   Cloud,
   Linkedin,
   Mail,
-  MapPin,
   Send,
 } from "lucide-react";
 
@@ -344,7 +342,21 @@ export default function App() {
                 style={{ transitionDelay: "120ms" }}
               >
                 <div className="relative flex min-h-0 flex-1 overflow-hidden rounded-2xl border border-white/[0.08] bg-zinc-900/50">
-                  <ContactMap />
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Wellington+CBD,+Wellington,+New+Zealand"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Open Wellington CBD on Google Maps"
+                    className="group block h-full w-full"
+                  >
+                    <img
+                      src="/wlg.png"
+                      alt="Wellington city view"
+                      className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </a>
                 </div>
               </div>
             </div>
@@ -354,13 +366,13 @@ export default function App() {
 
       <footer className="bg-zinc-900 px-5 py-12 sm:px-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 text-center">
-          <img
+          {/* <img
             src="/logo-square-transparent-bw.png"
             alt="Apatite IO"
             className="h-9 w-auto object-contain opacity-90"
             loading="lazy"
             decoding="async"
-          />
+          /> */}
           <div className="flex items-center gap-6">
             <a
               href="https://www.linkedin.com/company/apatite-io/"
@@ -379,13 +391,6 @@ export default function App() {
               <Mail className="h-6 w-6" strokeWidth={1.75} aria-hidden />
             </a>
           </div>
-          <p className="text-sm font-medium text-zinc-300">
-            Salesforce Implementation &amp; Support
-          </p>
-          <p className="flex items-center justify-center gap-2 text-sm text-zinc-500">
-            <MapPin className="h-4 w-4 shrink-0 text-zinc-500" aria-hidden />
-            Wellington, New Zealand
-          </p>
           <p className="text-sm text-zinc-400">
             © {new Date().getFullYear()} Apatite IO. All rights reserved.
           </p>
