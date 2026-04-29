@@ -99,6 +99,8 @@ function useRevealOnScroll<T extends HTMLElement>() {
 export default function App() {
   const [mounted, setMounted] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [heroHeadlineReady, setHeroHeadlineReady] = useState(false);
   const servicesRef = useRevealOnScroll<HTMLElement>();
   const formRef = useRevealOnScroll<HTMLElement>();
@@ -106,6 +108,9 @@ export default function App() {
   const onSubheadSalesforceComplete = useCallback(() => {
     setHeroHeadlineReady(true);
   }, []);
+
+  const ENQUIRY_ENDPOINT =
+    "https://5350sqjspa.execute-api.ap-southeast-2.amazonaws.com/prod/enquiries";
 
   useEffect(() => {
     const t = requestAnimationFrame(() => setMounted(true));
@@ -266,8 +271,59 @@ export default function App() {
                 <form
                   className="space-y-5"
                   onSubmit={(e) => {
-                    e.preventDefault();
-                    setSubmitted(true);
+                    void (async () => {
+                      e.preventDefault();
+                      if (submitting) return;
+
+                      setSubmitError(null);
+                      setSubmitting(true);
+
+                      const form = e.currentTarget;
+                      const formData = new FormData(form);
+
+                      const payload = {
+                        name: String(formData.get("name") ?? ""),
+                        email: String(formData.get("email") ?? ""),
+                        message: String(formData.get("message") ?? ""),
+                        // When enabled, your lambda will validate a Turnstile token server-side.
+                        token: "disabled",
+                      };
+
+                      try {
+                        const res = await fetch(ENQUIRY_ENDPOINT, {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify(payload),
+                        });
+
+                        if (!res.ok) {
+                          const responseText = await res
+                            .text()
+                            .catch(() => "");
+                          throw new Error(
+                            `Request failed (${res.status}): ${responseText || "Unknown error"}`
+                          );
+                        }
+
+                        setSubmitted(true);
+                      } catch (err) {
+                        console.error("Failed to submit enquiry:", err);
+                        if (err instanceof TypeError) {
+                          // In browsers, CORS/network blocks often surface as "Failed to fetch".
+                          setSubmitError(
+                            /failed to fetch/i.test(err.message)
+                              ? "Request failed in the browser (likely CORS). Check DevTools console for details."
+                              : err.message
+                          );
+                        } else if (err instanceof Error) {
+                          setSubmitError(err.message);
+                        } else {
+                          setSubmitError("Failed to send message.");
+                        }
+                      } finally {
+                        setSubmitting(false);
+                      }
+                    })();
                   }}
                 >
                   {submitted ? (
@@ -276,6 +332,11 @@ export default function App() {
                     </p>
                   ) : (
                     <>
+                      {submitError ? (
+                        <p className="rounded-[2rem] border border-red-500/40 bg-red-500/10 px-8 py-6 text-center text-sm font-medium text-red-200">
+                          {submitError}
+                        </p>
+                      ) : null}
                       <div>
                         <label
                           htmlFor="name"
@@ -329,8 +390,10 @@ export default function App() {
                       <button
                         type="submit"
                         className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white py-4 text-base font-semibold text-black transition hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:w-auto sm:min-w-[160px]"
+                        disabled={submitting}
+                        aria-busy={submitting}
                       >
-                        Send
+                        {submitting ? "Sending..." : "Send"}
                         <Send className="h-5 w-5" aria-hidden />
                       </button>
                     </>
