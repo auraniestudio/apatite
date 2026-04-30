@@ -1,0 +1,31 @@
+import { Linkedin, Mail } from "lucide-react";
+
+export function SiteFooter() {
+  return (
+    <footer className="bg-zinc-900 px-5 py-12 sm:px-8">
+      <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 text-center">
+        <div className="flex items-center gap-6">
+          <a
+            href="https://www.linkedin.com/company/apatite-io/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white transition hover:text-accent"
+            aria-label="Apatite on LinkedIn"
+          >
+            <Linkedin className="h-6 w-6" strokeWidth={1.75} aria-hidden />
+          </a>
+          <a
+            href="mailto:david@apatite.io"
+            className="text-white transition hover:text-accent"
+            aria-label="Email Apatite"
+          >
+            <Mail className="h-6 w-6" strokeWidth={1.75} aria-hidden />
+          </a>
+        </div>
+        <p className="text-sm text-zinc-400">
+          © {new Date().getFullYear()} Apatite IO. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  );
+}
