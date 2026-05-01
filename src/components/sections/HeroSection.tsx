@@ -1,7 +1,7 @@
 import { ArrowDown, Boxes, ChevronDown, Cloud } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { sectionH2Class, sectionIntroClass } from "../../sectionTypography";
+import { useRevealOnScroll } from "../../hooks/useRevealOnScroll";
 
 const ACCENT = "text-accent";
 
@@ -120,6 +120,7 @@ function SubheadSalesforceTyping({
 
 export function HeroSection() {
   const [heroHeadlineReady, setHeroHeadlineReady] = useState(false);
+  const offerRef = useRevealOnScroll<HTMLDivElement>();
   const [openOffers, setOpenOffers] = useState<Set<OfferId>>(() => new Set());
   const [offerHeaderMinPx, setOfferHeaderMinPx] = useState<number | undefined>(
     undefined,
@@ -213,7 +214,7 @@ export function HeroSection() {
                 block: "start",
               })
             }
-            className="inline-flex items-center gap-2 rounded-full border border-gray-500 bg-grey px-5 py-2.5 text-sm font-semibold text-grey transition hover:border-accent/100 hover:bg-accent/15 hover:text-[#59adff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+            className="services-cta-motion inline-flex items-center gap-2 rounded-full border border-accent/35 bg-accent/10 px-5 py-2.5 text-sm font-semibold text-accent transition hover:border-accent/55 hover:bg-accent/15 hover:text-[#59adff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
           >
             <ArrowDown className="h-4 w-4 shrink-0" aria-hidden />
             Services
@@ -222,12 +223,18 @@ export function HeroSection() {
 
         <div
           id="what-we-offer"
-          className="mt-20 w-full scroll-mt-28 rounded-3xl bg-gradient-to-b from-zinc-950/75 to-zinc-950/35 py-8 text-left shadow-[0_30px_80px_rgba(0,0,0,0.45)] backdrop-blur-sm sm:mt-28 sm:py-10"
+          ref={offerRef.ref}
+          className="mt-20 w-full scroll-mt-28 rounded-3xl bg-gradient-to-b from-zinc-950/75 to-zinc-950/35 p-8 text-left shadow-[0_30px_80px_rgba(0,0,0,0.45)] backdrop-blur-sm sm:mt-28 sm:p-10"
         >
-          <h2 className={sectionH2Class}>
+          <h2
+            className={`section-heading animate-on-scroll ${offerRef.visible ? "is-visible" : ""}`}
+          >
             What We Offer
           </h2>
-          <p className={sectionIntroClass}>
+          <p
+            className={`section-lede animate-on-scroll ${offerRef.visible ? "is-visible" : ""}`}
+            style={{ transitionDelay: "80ms" }}
+          >
             We specialise in Salesforce implementation and support, and custom-built
             CRM solutions for businesses whose needs go beyond what off-the-shelf
             products can offer.

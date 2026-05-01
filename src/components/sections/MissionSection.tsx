@@ -1,5 +1,4 @@
 import { useRevealOnScroll } from "../../hooks/useRevealOnScroll";
-import { sectionH2Class, sectionIntroClass } from "../../sectionTypography";
 
 export function MissionSection() {
   const missionRef = useRevealOnScroll<HTMLElement>();
@@ -8,12 +7,12 @@ export function MissionSection() {
     <section className="px-5 py-24 sm:px-8 sm:py-32" ref={missionRef.ref}>
       <div className="mx-auto max-w-6xl">
         <h2
-          className={`animate-on-scroll ${sectionH2Class} ${missionRef.visible ? "is-visible" : ""}`}
+          className={`section-heading animate-on-scroll ${missionRef.visible ? "is-visible" : ""}`}
         >
           Our Mission
         </h2>
         <p
-          className={`animate-on-scroll ${sectionIntroClass} ${missionRef.visible ? "is-visible" : ""}`}
+          className={`section-lede animate-on-scroll ${missionRef.visible ? "is-visible" : ""}`}
           style={{ transitionDelay: "80ms" }}
         >
           We started Apatite to fix a problem we kept seeing - businesses held back by the wrong tools.
