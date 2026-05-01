@@ -1,6 +1,52 @@
-import { useEffect, useRef, useState } from "react";
+import { ChevronDown } from "lucide-react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const ACCENT = "text-accent";
+
+type OfferId = "salesforce" | "custom";
+
+const WHAT_WE_OFFER_ITEMS: {
+  id: OfferId;
+  title: string;
+  teaser: string;
+  summary: string;
+  details: string;
+  bullets: string[];
+}[] = [
+  {
+    id: "salesforce",
+    title: "Salesforce Implementation & Support",
+    teaser:
+      "From initial setup and configuration through to ongoing support - we handle the full Salesforce journey.",
+    summary:
+      "From initial setup and configuration through to ongoing support.",
+    details:
+      "Whether you are migrating from another platform, rolling out a new org, or need a trusted partner to maintain and evolve your existing implementation, we bring the expertise to get it right.",
+    bullets: [
+      "Org setup, configuration & customisation",
+      "Data migration & integration",
+      "User training & adoption support",
+      "Ongoing managed support",
+    ],
+  },
+  {
+    id: "custom",
+    title: "Custom CRM Solution",
+    teaser:
+      "When off-the-shelf products fall short on price or complexity, we build a CRM tailored precisely to your needs.",
+    summary:
+      "For organisations where standard CRM platforms cannot adequately address operational complexity or commercial constraints, we design and deliver fully bespoke solutions.",
+    details:
+      "Through a structured discovery process, we develop a platform built precisely around your workflows — scalable, maintainable, and aligned to your long-term business objectives.",
+    bullets: [
+      "Structured requirements discovery & solution architecture",
+      "Purpose-engineered for your operational workflows",
+      "Built to scale alongside your organisation",
+      "Recommended where commercial or functional constraints rule out standard platforms",
+    ],
+  },
+];
+
 const SUBHEAD_SALESFORCE_WORD = "Salesforce";
 
 function delay(ms: number) {
@@ -67,12 +113,62 @@ function SubheadSalesforceTyping({
   );
 }
 
-type HeroSectionProps = {
-  onServicesClick: () => void;
-};
-
-export function HeroSection({ onServicesClick }: HeroSectionProps) {
+export function HeroSection() {
   const [heroHeadlineReady, setHeroHeadlineReady] = useState(false);
+  const [openOffers, setOpenOffers] = useState<Set<OfferId>>(() => new Set());
+  const [offerHeaderMinPx, setOfferHeaderMinPx] = useState<number | undefined>(
+    undefined,
+  );
+  const offerHeaderBtnRefs = useRef<
+    Partial<Record<OfferId, HTMLButtonElement>>
+  >({});
+
+  useLayoutEffect(() => {
+    const mq = window.matchMedia("(min-width: 640px)");
+
+    const measure = () => {
+      if (!mq.matches) {
+        setOfferHeaderMinPx(undefined);
+        return;
+      }
+      const a = offerHeaderBtnRefs.current.salesforce;
+      const b = offerHeaderBtnRefs.current.custom;
+      if (!a || !b) return;
+
+      for (const el of [a, b]) {
+        el.style.minHeight = "";
+      }
+      const maxPx = Math.max(
+        a.getBoundingClientRect().height,
+        b.getBoundingClientRect().height,
+      );
+      if (maxPx > 0) setOfferHeaderMinPx(maxPx);
+    };
+
+    measure();
+    const ro = new ResizeObserver(() => measure());
+    const a = offerHeaderBtnRefs.current.salesforce;
+    const b = offerHeaderBtnRefs.current.custom;
+    if (a) ro.observe(a);
+    if (b) ro.observe(b);
+    mq.addEventListener("change", measure);
+    window.addEventListener("resize", measure);
+
+    return () => {
+      ro.disconnect();
+      mq.removeEventListener("change", measure);
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
+
+  const toggleOffer = (id: OfferId) => {
+    setOpenOffers((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
 
   return (
     <section className="relative flex min-h-[calc(100dvh-6.5rem)] flex-col items-center justify-center px-5 pb-20 pt-32 text-center sm:px-8 sm:pb-24 sm:pt-36">
@@ -103,47 +199,78 @@ export function HeroSection({ onServicesClick }: HeroSectionProps) {
           </span>
         </p>
 
-        <div className="mt-10 w-full rounded-3xl border border-white/[0.1] bg-gradient-to-b from-zinc-950/75 to-zinc-950/35 p-8 text-left shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_30px_80px_rgba(0,0,0,0.45)] backdrop-blur-sm sm:p-10">
+        <div className="mt-32 w-full rounded-3xl border border-white/[0.1] bg-gradient-to-b from-zinc-950/75 to-zinc-950/35 p-8 text-left shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_30px_80px_rgba(0,0,0,0.45)] backdrop-blur-sm sm:mt-48 sm:p-10">
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             What We Offer
           </h2>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-500 sm:text-lg">
-            We help teams implement and optimise Salesforce, plus build custom CRM
-            solutions that fit how you work.
+          <p className="mt-4 max-w-4xl text-base leading-relaxed text-zinc-500 sm:text-lg">
+            We specialise in Salesforce implementation and support, and custom-built
+            CRM solutions for businesses whose needs go beyond what off-the-shelf
+            products can offer.
           </p>
 
-          <ul className="mt-9 grid gap-5 sm:grid-cols-2">
-            {[
-              {
-                title: "Salesforce Implementation & Support",
-                body: "Implementation, optimisation, and ongoing support.",
-              },
-              {
-                title: "Custom CRM Solution",
-                body: "Bespoke CRM built around your business and workflows.",
-              },
-            ].map((item) => (
+          <ul className="mt-9 grid gap-5 sm:grid-cols-2 sm:items-start">
+            {WHAT_WE_OFFER_ITEMS.map((item) => (
               <li
-                key={item.title}
-                className="group rounded-2xl border border-white/[0.08] bg-zinc-900/65 p-7 transition duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:bg-zinc-900/85"
+                key={item.id}
+                className="group h-fit rounded-2xl border border-white/[0.08] bg-zinc-900/65 p-7 transition duration-300 hover:border-white/20 hover:bg-zinc-900/85"
               >
-                <h3 className="text-xl font-bold text-zinc-100">{item.title}</h3>
-                <p className="mt-3 text-[15px] leading-relaxed text-zinc-400 transition-colors group-hover:text-zinc-300">
-                  {item.body}
-                </p>
+                <button
+                  type="button"
+                  ref={(el) => {
+                    if (el) offerHeaderBtnRefs.current[item.id] = el;
+                    else delete offerHeaderBtnRefs.current[item.id];
+                  }}
+                  onClick={() => toggleOffer(item.id)}
+                  style={
+                    offerHeaderMinPx != null
+                      ? { minHeight: offerHeaderMinPx }
+                      : undefined
+                  }
+                  className="flex w-full items-start justify-between gap-3 text-left"
+                  aria-expanded={openOffers.has(item.id)}
+                >
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-xl font-bold text-zinc-100">
+                      {item.title}
+                    </h3>
+                    <p className="mt-3 text-[16px] leading-relaxed text-zinc-400 transition-colors group-hover:text-zinc-300">
+                      {item.teaser}
+                    </p>
+                  </div>
+                  <ChevronDown
+                    className={`mt-5 h-5 w-5 shrink-0 text-zinc-400 transition-transform ${openOffers.has(item.id) ? "rotate-180 text-accent" : ""}`}
+                    aria-hidden
+                  />
+                </button>
+                <div
+                  className={`grid transition-all duration-300 ease-out ${openOffers.has(item.id) ? "mt-3 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+                >
+                  <div className="overflow-hidden">
+                    <p className="text-[15px] leading-relaxed text-zinc-400">
+                      {item.summary}
+                    </p>
+                    <p className="mt-4 text-[15px] leading-relaxed text-zinc-400">
+                      {item.details}
+                    </p>
+                    <ul className="mt-6 space-y-2">
+                      {item.bullets.map((bullet) => (
+                        <li
+                          key={bullet}
+                          className="flex items-start gap-2 text-[16px] leading-relaxed text-zinc-500"
+                        >
+                          <span className={ACCENT} aria-hidden>
+                            &rarr;
+                          </span>
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </li>
             ))}
           </ul>
-
-          <div className="mt-8">
-            <button
-              type="button"
-              onClick={onServicesClick}
-              className="rounded-full border border-accent/35 bg-accent/10 px-4 py-2 text-left text-sm font-semibold text-accent transition hover:border-accent/55 hover:bg-accent/15 hover:text-[#59adff]"
-            >
-              Services -&gt;
-            </button>
-          </div>
         </div>
       </div>
     </section>

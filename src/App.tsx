@@ -3,10 +3,6 @@ import { ContactSection } from "./components/sections/ContactSection";
 import { Header } from "./components/sections/Header";
 import { HeroSection } from "./components/sections/HeroSection";
 import { MissionSection } from "./components/sections/MissionSection";
-import {
-  ServicesSection,
-  type ServiceDetailId,
-} from "./components/sections/ServicesSection";
 import { SiteFooter } from "./components/sections/SiteFooter";
 
 const ENQUIRY_ENDPOINT =
@@ -14,21 +10,11 @@ const ENQUIRY_ENDPOINT =
 
 export default function App() {
   const [mounted, setMounted] = useState(false);
-  const [expandedService, setExpandedService] = useState<ServiceDetailId | null>(
-    null
-  );
 
   useEffect(() => {
     const t = requestAnimationFrame(() => setMounted(true));
     return () => cancelAnimationFrame(t);
   }, []);
-
-  const openServicesAccordion = () => {
-    setExpandedService("salesforce");
-    document
-      .getElementById("services")
-      ?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
 
   const scrollToContact = () => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
@@ -48,16 +34,10 @@ export default function App() {
         aria-hidden
       />
 
-      <Header onServicesClick={openServicesAccordion} onContactClick={scrollToContact} />
+      <Header onContactClick={scrollToContact} />
 
       <main>
-        <HeroSection onServicesClick={openServicesAccordion} />
-        <ServicesSection
-          expandedService={expandedService}
-          onToggleService={(id) =>
-            setExpandedService((curr) => (curr === id ? null : id))
-          }
-        />
+        <HeroSection />
         <MissionSection />
         <ContactSection endpoint={ENQUIRY_ENDPOINT} />
       </main>

@@ -4,7 +4,7 @@ export function MissionSection() {
   const missionRef = useRevealOnScroll<HTMLElement>();
 
   return (
-    <section className="px-5 py-24 sm:px-8 sm:py-30" ref={missionRef.ref}>
+    <section className="px-5 py-24 sm:px-12 sm:py-30" ref={missionRef.ref}>
       <div className="mx-auto max-w-6xl">
         <h2
           className={`animate-on-scroll text-4xl font-extrabold tracking-tight text-white sm:text-5xl ${missionRef.visible ? "is-visible" : ""}`}
@@ -12,14 +12,14 @@ export function MissionSection() {
           Our Mission
         </h2>
         <p
-          className={`animate-on-scroll mt-4 max-w-2xl text-base leading-relaxed text-zinc-500 sm:text-lg ${missionRef.visible ? "is-visible" : ""}`}
+          className={`animate-on-scroll mt-4 max-w-1xl text-base leading-relaxed text-zinc-500 sm:text-lg ${missionRef.visible ? "is-visible" : ""}`}
           style={{ transitionDelay: "80ms" }}
         >
-          We started Apatite to fix a problem we kept seeing - businesses held back
-          by the wrong tools. Our mission is simple.
+          We started Apatite to fix a problem we kept seeing - businesses held back by the wrong tools.
+          <br /> Our mission is simple.
         </p>
 
-        <ul className="mt-12 grid gap-5 md:grid-cols-3">
+        <ul className="mt-16 grid gap-5 md:grid-cols-3">
           {[
             {
               title: "Remove the Noise",
@@ -31,7 +31,7 @@ export function MissionSection() {
             },
             {
               title: "Your Success is Ours",
-              body: "If your team is delivering better for your clients, we're doing our job. Simple as that.",
+              body: "If your team is delivering better for your clients, we're doing our job.  Simple as that.",
             },
           ].map((item, i) => (
             <li
@@ -39,8 +39,10 @@ export function MissionSection() {
               className={`animate-on-scroll rounded-2xl border border-white/[0.08] bg-zinc-900/65 p-8 shadow-[0_10px_30px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:bg-zinc-900/85 ${missionRef.visible ? "is-visible" : ""}`}
               style={{ transitionDelay: `${120 + i * 90}ms` }}
             >
-              <h3 className="text-lg font-bold text-zinc-100">{item.title}</h3>
-              <p className="mt-3 text-[15px] leading-relaxed text-zinc-400">
+              <h3 className="text-xl font-bold leading-snug text-zinc-100 sm:text-1xl">
+                {item.title}
+              </h3>
+              <p className="mt-4 text-base leading-relaxed text-zinc-400 sm:text-lg">
                 {item.body}
               </p>
             </li>
