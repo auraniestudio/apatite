@@ -1,6 +1,7 @@
 import { ArrowDown, Boxes, ChevronDown, Cloud } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { sectionH2Class, sectionIntroClass } from "../../sectionTypography";
 
 const ACCENT = "text-accent";
 
@@ -221,18 +222,18 @@ export function HeroSection() {
 
         <div
           id="what-we-offer"
-          className="mt-20 w-full scroll-mt-28 rounded-3xl bg-gradient-to-b from-zinc-950/75 to-zinc-950/35 p-8 text-left shadow-[0_30px_80px_rgba(0,0,0,0.45)] backdrop-blur-sm sm:mt-28 sm:p-10"
+          className="mt-20 w-full scroll-mt-28 rounded-3xl bg-gradient-to-b from-zinc-950/75 to-zinc-950/35 py-8 text-left shadow-[0_30px_80px_rgba(0,0,0,0.45)] backdrop-blur-sm sm:mt-28 sm:py-10"
         >
-          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          <h2 className={sectionH2Class}>
             What We Offer
           </h2>
-          <p className="mt-4 max-w-4xl text-base leading-relaxed text-zinc-500 sm:text-lg">
+          <p className={sectionIntroClass}>
             We specialise in Salesforce implementation and support, and custom-built
             CRM solutions for businesses whose needs go beyond what off-the-shelf
             products can offer.
           </p>
 
-          <ul className="mt-9 grid gap-5 sm:grid-cols-2 sm:items-start">
+          <ul className="mt-16 grid gap-5 sm:grid-cols-2 sm:items-start">
             {WHAT_WE_OFFER_ITEMS.map((item) => {
               const OfferIcon = item.icon;
               return (

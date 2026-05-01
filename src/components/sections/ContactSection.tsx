@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Send } from "lucide-react";
 import { useRevealOnScroll } from "../../hooks/useRevealOnScroll";
+import { sectionH2Class } from "../../sectionTypography";
 
 type ContactSectionProps = {
   endpoint: string;
@@ -20,11 +21,11 @@ export function ContactSection({ endpoint }: ContactSectionProps) {
     >
       <div className="mx-auto max-w-6xl">
         <h2
-          className={`animate-on-scroll mb-12 text-center text-3xl font-extrabold tracking-tight text-white sm:mb-16 sm:text-4xl ${formRef.visible ? "is-visible" : ""}`}
+          className={`animate-on-scroll ${sectionH2Class} ${formRef.visible ? "is-visible" : ""}`}
         >
           Contact us
         </h2>
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-stretch lg:gap-16">
+        <div className="mt-16 grid gap-12 lg:grid-cols-2 lg:items-stretch lg:gap-16">
           <div
             className={`animate-on-scroll flex h-full min-h-0 flex-col ${formRef.visible ? "is-visible" : ""}`}
             style={{ transitionDelay: "80ms" }}
