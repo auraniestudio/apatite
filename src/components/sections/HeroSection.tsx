@@ -1,4 +1,4 @@
-import { Boxes, ChevronDown, Cloud } from "lucide-react";
+import { ArrowDown, Boxes, ChevronDown, Cloud } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
@@ -203,7 +203,26 @@ export function HeroSection() {
           </span>
         </p>
 
-        <div className="mt-32 w-full rounded-3xl bg-gradient-to-b from-zinc-950/75 to-zinc-950/35 p-8 text-left shadow-[0_30px_80px_rgba(0,0,0,0.45)] backdrop-blur-sm sm:mt-48 sm:p-10">
+        <div className="mt-8 flex w-full justify-center">
+          <button
+            type="button"
+            onClick={() =>
+              document.getElementById("what-we-offer")?.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              })
+            }
+            className="inline-flex items-center gap-2 rounded-full border border-gray-500 bg-grey px-5 py-2.5 text-sm font-semibold text-grey transition hover:border-accent/100 hover:bg-accent/15 hover:text-[#59adff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+          >
+            <ArrowDown className="h-4 w-4 shrink-0" aria-hidden />
+            Services
+          </button>
+        </div>
+
+        <div
+          id="what-we-offer"
+          className="mt-20 w-full scroll-mt-28 rounded-3xl bg-gradient-to-b from-zinc-950/75 to-zinc-950/35 p-8 text-left shadow-[0_30px_80px_rgba(0,0,0,0.45)] backdrop-blur-sm sm:mt-28 sm:p-10"
+        >
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             What We Offer
           </h2>
