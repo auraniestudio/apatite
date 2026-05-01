@@ -1,4 +1,5 @@
-import { ChevronDown } from "lucide-react";
+import { Boxes, ChevronDown, Cloud } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const ACCENT = "text-accent";
@@ -7,6 +8,7 @@ type OfferId = "salesforce" | "custom";
 
 const WHAT_WE_OFFER_ITEMS: {
   id: OfferId;
+  icon: LucideIcon;
   title: string;
   teaser: string;
   summary: string;
@@ -15,6 +17,7 @@ const WHAT_WE_OFFER_ITEMS: {
 }[] = [
   {
     id: "salesforce",
+    icon: Cloud,
     title: "Salesforce Implementation & Support",
     teaser:
       "From initial setup and configuration through to ongoing support - we handle the full Salesforce journey.",
@@ -31,6 +34,7 @@ const WHAT_WE_OFFER_ITEMS: {
   },
   {
     id: "custom",
+    icon: Boxes,
     title: "Custom CRM Solution",
     teaser:
       "When off-the-shelf products fall short on price or complexity, we build a CRM tailored precisely to your needs.",
@@ -199,7 +203,7 @@ export function HeroSection() {
           </span>
         </p>
 
-        <div className="mt-32 w-full rounded-3xl border border-white/[0.1] bg-gradient-to-b from-zinc-950/75 to-zinc-950/35 p-8 text-left shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_30px_80px_rgba(0,0,0,0.45)] backdrop-blur-sm sm:mt-48 sm:p-10">
+        <div className="mt-32 w-full rounded-3xl bg-gradient-to-b from-zinc-950/75 to-zinc-950/35 p-8 text-left shadow-[0_30px_80px_rgba(0,0,0,0.45)] backdrop-blur-sm sm:mt-48 sm:p-10">
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             What We Offer
           </h2>
@@ -210,10 +214,12 @@ export function HeroSection() {
           </p>
 
           <ul className="mt-9 grid gap-5 sm:grid-cols-2 sm:items-start">
-            {WHAT_WE_OFFER_ITEMS.map((item) => (
+            {WHAT_WE_OFFER_ITEMS.map((item) => {
+              const OfferIcon = item.icon;
+              return (
               <li
                 key={item.id}
-                className="group h-fit rounded-2xl border border-white/[0.08] bg-zinc-900/65 p-7 transition duration-300 hover:border-white/20 hover:bg-zinc-900/85"
+                className="h-fit rounded-2xl border border-white/[0.08] bg-zinc-900/65 p-7"
               >
                 <button
                   type="button"
@@ -231,15 +237,20 @@ export function HeroSection() {
                   aria-expanded={openOffers.has(item.id)}
                 >
                   <div className="min-w-0 flex-1">
+                    <OfferIcon
+                      className="mb-4 h-10 w-10 text-accent"
+                      strokeWidth={1.5}
+                      aria-hidden
+                    />
                     <h3 className="text-xl font-bold text-zinc-100">
                       {item.title}
                     </h3>
-                    <p className="mt-3 text-[16px] leading-relaxed text-zinc-400 transition-colors group-hover:text-zinc-300">
+                    <p className="mt-3 text-[16px] leading-relaxed text-zinc-400">
                       {item.teaser}
                     </p>
                   </div>
                   <ChevronDown
-                    className={`mt-5 h-5 w-5 shrink-0 text-zinc-400 transition-transform ${openOffers.has(item.id) ? "rotate-180 text-accent" : ""}`}
+                    className={`mt-12 h-5 w-5 shrink-0 text-zinc-400 transition-transform ${openOffers.has(item.id) ? "rotate-180 text-accent" : ""}`}
                     aria-hidden
                   />
                 </button>
@@ -269,7 +280,8 @@ export function HeroSection() {
                   </div>
                 </div>
               </li>
-            ))}
+            );
+            })}
           </ul>
         </div>
       </div>
