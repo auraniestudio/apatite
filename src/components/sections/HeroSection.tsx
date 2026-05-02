@@ -12,8 +12,7 @@ const WHAT_WE_OFFER_ITEMS: {
   icon: LucideIcon;
   title: string;
   teaser: string;
-  summary: string;
-  details: string;
+  details: string | readonly [string, string];
   bullets: string[];
 }[] = [
   {
@@ -22,10 +21,10 @@ const WHAT_WE_OFFER_ITEMS: {
     title: "Salesforce Implementation & Support",
     teaser:
       "From initial setup and configuration through to ongoing support - we handle the full Salesforce journey.",
-    summary:
-      "From initial setup and configuration through to ongoing support.",
-    details:
-      "Whether you are migrating from another platform, rolling out a new org, or need a trusted partner to maintain and evolve your existing implementation, we bring the expertise to get it right.",
+    details: [
+      "Whether you are migrating from another platform, rolling out a new org, or need a trusted partner to maintain and evolve your existing implementation,",
+      "we bring the expertise to get it right.",
+    ] as const,
     bullets: [
       "Org setup, configuration & customisation",
       "Data migration & integration",
@@ -39,10 +38,8 @@ const WHAT_WE_OFFER_ITEMS: {
     title: "Custom CRM Solution",
     teaser:
       "When off-the-shelf products fall short on price or complexity, we build a CRM tailored precisely to your needs.",
-    summary:
-      "For organisations where standard CRM platforms cannot adequately address operational complexity or commercial constraints, we design and deliver fully bespoke solutions.",
-    details:
-      "Through a structured discovery process, we develop a platform built precisely around your workflows — scalable, maintainable, and aligned to your long-term business objectives.",
+      details:
+      "Through a structured discovery process, we develop a platform built precisely around your workflows scalable, maintainable, and aligned to your long-term business objectives.",
     bullets: [
       "Structured requirements discovery & solution architecture",
       "Purpose-engineered for your operational workflows",
@@ -246,7 +243,7 @@ export function HeroSection() {
               return (
               <li
                 key={item.id}
-                className="h-fit rounded-2xl border border-white/[0.08] bg-zinc-900/65 p-7"
+                className="h-fit rounded-2xl border border-white/[0.08] bg-zinc-900/65 p-7 shadow-[0_10px_30px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:bg-zinc-900/85"
               >
                 <button
                   type="button"
@@ -272,12 +269,12 @@ export function HeroSection() {
                     <h3 className="text-xl font-bold text-zinc-100">
                       {item.title}
                     </h3>
-                    <p className="mt-3 text-[16px] leading-relaxed text-zinc-400">
+                    <p className="mt-4 text-[16px] leading-relaxed text-zinc-400">
                       {item.teaser}
                     </p>
                   </div>
                   <ChevronDown
-                    className={`mt-12 h-5 w-5 shrink-0 text-zinc-400 transition-transform ${openOffers.has(item.id) ? "rotate-180 text-accent" : ""}`}
+                    className={`mt-2 h-5 w-5 shrink-0 text-zinc-400 transition-transform ${openOffers.has(item.id) ? "rotate-180 text-accent" : ""}`}
                     aria-hidden
                   />
                 </button>
@@ -285,13 +282,19 @@ export function HeroSection() {
                   className={`grid transition-all duration-300 ease-out ${openOffers.has(item.id) ? "mt-3 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
                 >
                   <div className="overflow-hidden">
-                    <p className="text-[15px] leading-relaxed text-zinc-400">
-                      {item.summary}
+                    
+                    <p className="text-[16px] leading-relaxed text-zinc-400">
+                      {Array.isArray(item.details) ? (
+                        <>
+                          {item.details[0]}
+                          <br />
+                          {item.details[1]}
+                        </>
+                      ) : (
+                        item.details
+                      )}
                     </p>
-                    <p className="mt-4 text-[15px] leading-relaxed text-zinc-400">
-                      {item.details}
-                    </p>
-                    <ul className="mt-6 space-y-2">
+                    <ul className="mt-4 space-y-2">
                       {item.bullets.map((bullet) => (
                         <li
                           key={bullet}

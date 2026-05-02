@@ -15,7 +15,7 @@ export function MissionSection() {
           className={`section-lede animate-on-scroll ${missionRef.visible ? "is-visible" : ""}`}
           style={{ transitionDelay: "80ms" }}
         >
-          We started Apatite to fix a problem we kept seeing - businesses held back by the wrong tools.
+          We started Apatite to fix a problem we kept seeing businesses held back by the wrong tools.
           <br /> Our mission is simple.
         </p>
 
@@ -23,11 +23,11 @@ export function MissionSection() {
           {[
             {
               title: "Remove the Noise",
-              body: "Overly complex workflows, inherited the wrong tool, or still living in spreadsheets - we come in and clear the path so your team can move freely.",
+              body: "Overly complex workflows, inherited the wrong tool, or still living in spreadsheets, we come in and clear the path so your team can move freely.",
             },
             {
               title: "Built Around You",
-              body: "No two businesses are alike. We take the time to understand how you work before recommending or building anything.",
+              body: "No two businesses are alike. We take the time to understand how you work before recommending or building anything."
             },
             {
               title: "Your Success is Ours",
