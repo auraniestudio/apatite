@@ -8,10 +8,7 @@ import { SiteFooter } from "./components/sections/SiteFooter";
 const DEFAULT_ENQUIRY_URL =
   "https://5350sqjspa.execute-api.ap-southeast-2.amazonaws.com/prod/enquiries";
 
-/**
- * Dev: always `/api/enquiries` (Vite proxy → same API, no browser CORS).
- * Production: `VITE_ENQUIRY_ENDPOINT` from `.env` / host env, else default URL.
- */
+
 const ENQUIRY_ENDPOINT = import.meta.env.DEV
   ? "/api/enquiries"
   : (import.meta.env.VITE_ENQUIRY_ENDPOINT ?? "").trim() || DEFAULT_ENQUIRY_URL;

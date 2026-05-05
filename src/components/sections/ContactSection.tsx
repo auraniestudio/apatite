@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Send } from "lucide-react";
 import { useRevealOnScroll } from "../../hooks/useRevealOnScroll";
 
-/** Sent as-is so the enquiries Lambda can skip Turnstile when not required */
+
 const ENQUIRY_TOKEN_DISABLED = "disabled";
 
 type ContactSectionProps = {
