@@ -39,7 +39,7 @@ export function MissionSection() {
               className={`animate-on-scroll rounded-2xl border border-white/[0.08] bg-zinc-900/65 p-8 shadow-[0_10px_30px_rgba(0,0,0,0.28)] transition duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:bg-zinc-900/85 ${missionRef.visible ? "is-visible" : ""}`}
               style={{ transitionDelay: `${120 + i * 90}ms` }}
             >
-              <h3 className="text-xl font-bold leading-snug text-zinc-100 sm:text-1xl">
+              <h3 className="text-xl font-bold leading-snug text-zinc-100 sm:text-2xl">
                 {item.title}
               </h3>
               <p className="mt-4 text-base leading-relaxed text-zinc-400 sm:text-lg">

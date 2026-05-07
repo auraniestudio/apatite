@@ -27,8 +27,15 @@ export default function App() {
 
   return (
     <div
+      id="top"
       className={`relative min-h-screen overflow-x-hidden ${mounted ? "page-enter" : "opacity-0"}`}
     >
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-black focus:px-3 focus:py-2 focus:text-white focus:ring-2 focus:ring-accent"
+      >
+        Skip to main content
+      </a>
       <div className="pointer-events-none fixed inset-0 -z-10 bg-black" aria-hidden />
       <div
         className="pointer-events-none fixed inset-0 -z-10"
@@ -41,7 +48,7 @@ export default function App() {
 
       <Header onContactClick={scrollToContact} />
 
-      <main>
+      <main id="main-content">
         <HeroSection />
         <MissionSection />
         <ContactSection endpoint={ENQUIRY_ENDPOINT} />

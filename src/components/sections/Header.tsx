@@ -8,7 +8,8 @@ export function Header({ onContactClick }: HeaderProps) {
       <div className="relative mx-auto max-w-6xl px-5 py-4 sm:px-8 sm:py-5">
         <div className="flex items-center justify-between">
           <a
-            href="#"
+            href="#top"
+            aria-label="Go to top"
             className="group flex items-center rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
             <img

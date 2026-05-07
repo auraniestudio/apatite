@@ -1,4 +1,4 @@
-import { Linkedin, Mail } from "lucide-react";
+import { Linkedin } from "lucide-react";
 
 export function SiteFooter() {
   return (
@@ -9,7 +9,7 @@ export function SiteFooter() {
             href="https://www.linkedin.com/company/apatite-io/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white transition hover:text-accent"
+            className="rounded-md text-white transition hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             aria-label="Apatite on LinkedIn"
           >
             <Linkedin className="h-6 w-6" strokeWidth={1.75} aria-hidden />

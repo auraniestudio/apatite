@@ -257,8 +257,9 @@ export function HeroSection() {
                       ? { minHeight: offerHeaderMinPx }
                       : undefined
                   }
-                  className="flex w-full items-start justify-between gap-3 text-left"
+                  className="flex w-full items-start justify-between gap-3 rounded-lg text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-900"
                   aria-expanded={openOffers.has(item.id)}
+                  aria-controls={`offer-details-${item.id}`}
                 >
                   <div className="min-w-0 flex-1">
                     <OfferIcon
@@ -279,6 +280,7 @@ export function HeroSection() {
                   />
                 </button>
                 <div
+                  id={`offer-details-${item.id}`}
                   className={`grid transition-all duration-300 ease-out ${openOffers.has(item.id) ? "mt-3 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
                 >
                   <div className="overflow-hidden">

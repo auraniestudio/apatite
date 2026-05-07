@@ -218,6 +218,18 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .page-enter,
+  .animate-on-scroll,
+  .animate-fade-in-up,
+  .hero-fade {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
   .services-cta-motion {
     animation: none;
   }
