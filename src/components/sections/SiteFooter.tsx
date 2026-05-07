@@ -14,13 +14,7 @@ export function SiteFooter() {
           >
             <Linkedin className="h-6 w-6" strokeWidth={1.75} aria-hidden />
           </a>
-          <a
-            href="mailto:david@apatite.io"
-            className="text-white transition hover:text-accent"
-            aria-label="Email Apatite"
-          >
-            <Mail className="h-6 w-6" strokeWidth={1.75} aria-hidden />
-          </a>
+          
         </div>
         <p className="text-sm text-zinc-400">
           © {new Date().getFullYear()} Apatite IO. All rights reserved.
