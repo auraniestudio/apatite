@@ -21,13 +21,24 @@ export default function App() {
     return () => cancelAnimationFrame(t);
   }, []);
 
+  useEffect(() => {
+    if (window.location.hash !== "#top") return;
+    window.history.replaceState(
+      null,
+      "",
+      `${window.location.pathname}${window.location.search}`,
+    );
+  }, []);
+
   const scrollToContact = () => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  };
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <div
-      id="top"
       className={`relative min-h-screen overflow-x-hidden ${mounted ? "page-enter" : "opacity-0"}`}
     >
       <a
@@ -46,7 +57,7 @@ export default function App() {
         aria-hidden
       />
 
-      <Header onContactClick={scrollToContact} />
+      <Header onLogoClick={scrollToTop} onContactClick={scrollToContact} />
 
       <main id="main-content">
         <HeroSection />
