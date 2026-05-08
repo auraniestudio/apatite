@@ -211,9 +211,9 @@ export function HeroSection() {
                 block: "start",
               })
             }
-            className="services-cta-motion inline-flex items-center gap-2 rounded-full border border-accent/35 bg-accent/10 px-5 py-2.5 text-sm font-semibold text-accent transition hover:border-accent/55 hover:bg-accent/15 hover:text-[#59adff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
+            className="services-cta-motion inline-flex items-center gap-3 rounded-full border border-accent/35 bg-accent/10 px-6 py-2 text-base font-semibold text-accent transition hover:border-accent/55 hover:bg-accent/15 hover:text-[#59adff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50"
           >
-            <ArrowDown className="h-4 w-4 shrink-0" aria-hidden />
+            <ArrowDown className="h-5 w-5 shrink-0" aria-hidden />
             Services
           </button>
         </div>
@@ -221,7 +221,7 @@ export function HeroSection() {
         <div
           id="what-we-offer"
           ref={offerRef.ref}
-          className="mt-20 w-full scroll-mt-28 rounded-3xl bg-gradient-to-b from-zinc-950/75 to-zinc-950/35 p-8 text-left shadow-[0_30px_80px_rgba(0,0,0,0.45)] backdrop-blur-sm sm:mt-28 sm:p-10"
+          className="mt-20 w-full scroll-mt-28 text-left sm:mt-28"
         >
           <h2
             className={`section-heading animate-on-scroll ${offerRef.visible ? "is-visible" : ""}`}
