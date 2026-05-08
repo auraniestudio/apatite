@@ -19,8 +19,16 @@ export function SiteFooter() {
         <p className="text-sm text-zinc-400">
           © {new Date().getFullYear()} Apatite IO. All rights reserved.
         </p>
-        <p className="text-sm text-zinc-400">
-        Designed by Auranie Studio
+        <p className="-mt-6 text-sm text-zinc-400">
+          Designed by{" "}
+          <a
+            href="https://www.auraniestudio.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className=" decoration-zinc-500 underline-offset-2 transition hover:text-zinc-200 hover:decoration-zinc-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          >
+            Auranie Studio
+          </a>
         </p>
       </div>
     </footer>
