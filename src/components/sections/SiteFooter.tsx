@@ -2,7 +2,7 @@ import { Linkedin } from "lucide-react";
 
 export function SiteFooter() {
   return (
-    <footer className="bg-zinc-900 px-5 py-12 sm:px-8">
+    <footer className="bg-zinc-900 px-5 py-4 sm:px-8">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 text-center">
         <div className="flex items-center gap-6">
           <a
@@ -18,6 +18,9 @@ export function SiteFooter() {
         </div>
         <p className="text-sm text-zinc-400">
           © {new Date().getFullYear()} Apatite IO. All rights reserved.
+        </p>
+        <p className="text-sm text-zinc-400">
+        Designed by Auranie Studio
         </p>
       </div>
     </footer>
