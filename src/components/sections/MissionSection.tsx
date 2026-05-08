@@ -15,7 +15,7 @@ export function MissionSection() {
           className={`section-lede animate-on-scroll ${missionRef.visible ? "is-visible" : ""}`}
           style={{ transitionDelay: "80ms" }}
         >
-          We started Apatite to fix a problem we kept seeing businesses held back by the wrong tools.
+          We started Apatite to fix a problem we kept seeing - businesses being held back by the wrong tools.
           <br /> Our mission is simple.
         </p>
 
